@@ -20,7 +20,11 @@ npm run build
 npm start
 ```
 
-`npm start` serves the built app and provides the same-origin NNUE download endpoint required by browsers. The app needs internet access to download the network on the first game. It sets COOP/COEP headers for Pikafish's WebAssembly threads; host it with these headers intact. If deploying elsewhere, provide `/engine/pikafish.nnue` as a same-origin streamed proxy to the official network release and set `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
+`npm start` serves the built app and provides the same-origin NNUE download endpoint required by browsers. The app needs internet access to download the network on the first game. It sets COOP/COEP headers for Pikafish's WebAssembly threads; host it with these headers intact. If deploying elsewhere, provide `/engine/pikafish-network.php` (or `/engine/pikafish.nnue`) as a same-origin streamed proxy to the official network release and set `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`.
+
+### PHP-only web hosting
+
+Run `npm run build`, then upload the **contents** of `dist/` to the site's document root, including the hidden `.htaccess` file. The PHP endpoint at `engine/pikafish-network.php` streams the NNUE network from the official release; no URL rewrite is needed. The hosting plan must provide PHP with the cURL extension, allow outbound HTTPS requests, and honor `.htaccess` response headers (Apache `mod_headers`). If `.htaccess` headers are not supported, configure the same COOP/COEP headers in the hosting control panel. Open the site at the domain root; the current build uses root-relative asset paths.
 
 Difficulty changes Pikafish's search depth. The search depths are capped to keep browser play responsive.
 

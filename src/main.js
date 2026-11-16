@@ -279,7 +279,7 @@ function startEngine() {
     type: "init",
     jsUrl: `${location.origin}/engine/pikafish.js`,
     wasmUrl: `${location.origin}/engine/pikafish.wasm`,
-    netUrl: `${location.origin}/engine/pikafish.nnue`
+    netUrl: `${location.origin}/engine/pikafish-network.php`
   });
 }
 

@@ -60,7 +60,7 @@ async function serveNetwork(request, response) {
 createServer((request, response) => {
   setIsolationHeaders(response);
   const pathname = new URL(request.url, `http://${request.headers.host}`).pathname;
-  if (pathname === "/engine/pikafish.nnue") {
+  if (pathname === "/engine/pikafish.nnue" || pathname === "/engine/pikafish-network.php") {
     void serveNetwork(request, response);
     return;
   }

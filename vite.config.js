@@ -2,6 +2,7 @@ import { Readable } from "node:stream";
 import { defineConfig } from "vite";
 
 const networkUrl = "https://github.com/official-pikafish/Networks/releases/download/master-net/pikafish.nnue";
+const networkPaths = new Set(["/engine/pikafish.nnue", "/engine/pikafish-network.php"]);
 
 function isolationHeaders() {
   return {
@@ -55,7 +56,7 @@ async function serveNetwork(req, res) {
 
 function pikafishNetwork() {
   const handler = (req, res, next) => {
-    if (req.url?.split("?")[0] !== "/engine/pikafish.nnue") return next();
+    if (!networkPaths.has(req.url?.split("?")[0] ?? "")) return next();
     void serveNetwork(req, res);
   };
 
