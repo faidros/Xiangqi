@@ -72,6 +72,7 @@ function pikafishNetwork() {
 }
 
 export default defineConfig({
+  base: "./",
   plugins: [pikafishNetwork()],
   server: { headers: isolationHeaders() },
   preview: { headers: isolationHeaders() }

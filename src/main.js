@@ -26,6 +26,10 @@ const difficulties = {
   }
 };
 
+function appUrl(path) {
+  return new URL(`${import.meta.env.BASE_URL}${path}`, document.baseURI).href;
+}
+
 const elements = {
   difficulty: document.querySelector("#difficulty"),
   difficultyHint: document.querySelector("#difficulty-hint"),
@@ -154,8 +158,8 @@ function initializeBoard() {
     position: "start",
     draggable: true,
     showNotation: false,
-    pieceTheme: "/vendor/xiangqiboard/img/xiangqipieces/graphic/{piece}.svg",
-    boardTheme: "/vendor/xiangqiboard/img/xiangqiboards/wikimedia/xiangqiboard.svg",
+    pieceTheme: `${import.meta.env.BASE_URL}vendor/xiangqiboard/img/xiangqipieces/graphic/{piece}.svg`,
+    boardTheme: appUrl("vendor/xiangqiboard/img/xiangqiboards/wikimedia/xiangqiboard.svg"),
     onDragStart: canDrag,
     onDrop,
     onSnapEnd
@@ -212,7 +216,7 @@ function startEngine() {
   elements.startButton.disabled = true;
   setEngineBadge("Laddar …", "loading");
 
-  engineWorker = new Worker("/engine/pikafish-worker.js");
+  engineWorker = new Worker(appUrl("engine/pikafish-worker.js"));
   engineWorker.addEventListener("error", (event) => {
     showEngineError(`Motorn kunde inte starta. ${event.message || "Kontrollera att appen körs via npm run dev eller npm start."}`);
   });
@@ -277,9 +281,9 @@ function startEngine() {
 
   engineWorker.postMessage({
     type: "init",
-    jsUrl: `${location.origin}/engine/pikafish.js`,
-    wasmUrl: `${location.origin}/engine/pikafish.wasm`,
-    netUrl: `${location.origin}/engine/pikafish-network.php`
+    jsUrl: appUrl("engine/pikafish.js"),
+    wasmUrl: appUrl("engine/pikafish.wasm"),
+    netUrl: appUrl("engine/pikafish-network.php")
   });
 }
 

@@ -24,7 +24,7 @@ npm start
 
 ### PHP-only web hosting
 
-Run `npm run build`, then upload the **contents** of `dist/` to the site's document root, including the hidden `.htaccess` file. The PHP endpoint at `engine/pikafish-network.php` streams the NNUE network from the official release; no URL rewrite is needed. The hosting plan must provide PHP with the cURL extension, allow outbound HTTPS requests, and honor `.htaccess` response headers (Apache `mod_headers`). If `.htaccess` headers are not supported, configure the same COOP/COEP headers in the hosting control panel. Open the site at the domain root; the current build uses root-relative asset paths.
+Run `npm run build`, then upload the **contents** of `dist/` to the directory where the site should live (for example, `public_html/xiangqi/`), including the hidden `.htaccess` file. The build uses relative asset paths, so it works both at the domain root and in a subdirectory. The PHP endpoint at `engine/pikafish-network.php` streams the NNUE network from the official release; no URL rewrite is needed. The hosting plan must provide PHP with the cURL extension, allow outbound HTTPS requests, and honor `.htaccess` response headers (Apache `mod_headers`). If `.htaccess` headers are not supported, configure the same COOP/COEP headers in the hosting control panel.
 
 Difficulty changes Pikafish's search depth. The search depths are capped to keep browser play responsive.
 
