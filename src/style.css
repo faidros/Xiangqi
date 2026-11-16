@@ -105,6 +105,12 @@ h2 { margin: 0; color: #f1efe6; font: 650 16px/1.25 "Manrope", sans-serif; lette
 .engine-badge i { width: 6px; height: 6px; background: #71817a; box-shadow: none; }
 .engine-badge.ready { color: #afd194; border-color: rgba(182, 213, 154, .2); }
 .engine-badge.ready i { background: #92be76; box-shadow: 0 0 9px rgba(146, 190, 118, .45); }
+.engine-badge.won { color: #afd194; border-color: rgba(182, 213, 154, .35); }
+.engine-badge.won i { background: #92be76; box-shadow: 0 0 9px rgba(146, 190, 118, .45); }
+.engine-badge.lost { color: #e49b86; border-color: rgba(209, 125, 104, .35); }
+.engine-badge.lost i { background: #d17d68; box-shadow: 0 0 9px rgba(209, 125, 104, .45); }
+.engine-badge.draw { color: var(--gold); border-color: rgba(214, 186, 124, .35); }
+.engine-badge.draw i { background: var(--gold); box-shadow: 0 0 9px rgba(214, 186, 124, .45); }
 .engine-badge.loading i { background: var(--gold); animation: pulse 1s infinite; }
 .engine-badge.thinking i { background: #e9bd78; animation: pulse .7s infinite; }
 @keyframes pulse { 50% { opacity: .35; } }

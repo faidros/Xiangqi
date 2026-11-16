@@ -71,7 +71,7 @@ function setEngineBadge(label, state = "") {
 function setMessage(message, state = "") {
   setEngineBadge(message, state);
   elements.engineTurnDot.classList.toggle("active", state === "thinking");
-  elements.humanTurnDot.classList.toggle("active", !engineThinking && gameStarted && game.turn() === "r");
+  elements.humanTurnDot.classList.toggle("active", !engineThinking && gameStarted && !game.game_over() && game.turn() === "r");
 }
 
 function updateMoveLog() {
@@ -103,6 +103,23 @@ function addMove(move) {
   updateMoveLog();
 }
 
+function finishedGameStatus() {
+  const sideToMove = game.turn();
+  const sideToMoveHasKing = game.board().some((rank) =>
+    rank.some((piece) => piece?.type === "k" && piece.color === sideToMove)
+  );
+
+  if (game.in_checkmate() || game.in_stalemate() || !sideToMoveHasKing) {
+    const userWon = sideToMove === "b";
+    return userWon
+      ? { label: "Du vann!", state: "won" }
+      : { label: "Du förlorade", state: "lost" };
+  }
+
+  if (game.in_draw()) return { label: "Oavgjort", state: "draw" };
+  return { label: "Partiet avslutat", state: "" };
+}
+
 function updateBoardStatus() {
   if (!gameStarted) {
     setMessage(engineReady ? "Redo" : "Avstängd");
@@ -111,7 +128,8 @@ function updateBoardStatus() {
 
   if (game.game_over()) {
     engineThinking = false;
-    setMessage("Partiet avslutat");
+    const result = finishedGameStatus();
+    setMessage(result.label, result.state);
     elements.startButton.querySelector("span").textContent = "Spela igen";
     elements.startButton.disabled = false;
     elements.undoButton.disabled = moves.length === 0;
